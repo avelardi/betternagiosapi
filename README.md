@@ -30,5 +30,6 @@ $ docker build -t rmcintosh/nagios-api .
 $ docker run -d \
     -p 9090:9090 \
     -e NAGIOS_STATUS_PATH=/usr/local/nagios/var/status.dat \
+    -v /usr/local/nagios/var/status.dat:/usr/local/nagios/var/status.dat
     rmcintosh/nagios-api
 ```
