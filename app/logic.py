@@ -1,8 +1,9 @@
 from flask import abort, jsonify
+import os
 import socket
 
 
-NAGIOS_STATUS_PATH = "/usr/local/nagios/var/status.dat" if "nagios" in socket.gethostname() else "/Users/mcintosh/status.dat"
+NAGIOS_STATUS_PATH = os.getenv("NAGIOS_STATUS_PATH", default="/usr/local/nagios/var/status.dat")
 
 
 def status_json_or_404(endpoint=None, field=None, **filters):
