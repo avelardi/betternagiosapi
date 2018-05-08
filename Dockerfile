@@ -9,4 +9,4 @@ WORKDIR /app
 
 ADD app .
 
-CMD ["uwsgi", "--http", ":9090", "--wsgi-file", "wsgi.py"]
+CMD ["uwsgi", "--http", ":9090", "--uid", "10000", "--gid", "10000", "--wsgi", "wsgi:application", "--master"]
