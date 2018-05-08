@@ -12,7 +12,7 @@ $ git clone git@github.com:rmcintosh/NagiosAPI.git
 $ cd NagiosAPI
 ```
 
-From there you can choose to run it as a standard python applicaiton, or with Docker.
+From there you can choose to run it as a standard python application, or with Docker.
 
 ### Standard
 
