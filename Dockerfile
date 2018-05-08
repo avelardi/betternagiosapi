@@ -5,8 +5,8 @@ ADD requirements.txt .
 RUN apk add --no-cache python3-dev build-base linux-headers pcre-dev \
  && pip install -r requirements.txt
 
-WORKDIR /app
+WORKDIR /srv/nagiosapi
 
-ADD app .
+ADD nagiosapi .
 
 CMD ["uwsgi", "--http", ":9090", "--uid", "10000", "--gid", "10000", "--wsgi", "wsgi:application", "--master"]

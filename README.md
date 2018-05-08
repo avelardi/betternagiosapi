@@ -9,7 +9,7 @@
 
 ```sh
 $ git clone git@github.com:rmcintosh/NagiosAPI.git
-$ cd NagiosAPI
+$ cd NagiosAPI/
 ```
 
 From there you can choose to run it as a standard python application, or with Docker.
@@ -18,7 +18,7 @@ From there you can choose to run it as a standard python application, or with Do
 
 ```sh
 $ pip install -r requirements.txt
-$ cd app/
+$ cd nagiosapi/
 $ export NAGIOS_STATUS_PATH=/usr/local/nagios/var/status.dat
 $ uwsgi --http :9090 --wsgi wsgi:application --master
 ```
