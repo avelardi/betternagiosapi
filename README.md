@@ -28,6 +28,7 @@ $ uwsgi --http :9090 --wsgi wsgi:application --master
 ```sh
 $ docker build -t rmcintosh/nagios-api .
 $ docker run -d \
+    --name nagios-api
     -p 9090:9090 \
     -e NAGIOS_STATUS_PATH=/usr/local/nagios/var/status.dat \
     -v /usr/local/nagios/var/status.dat:/usr/local/nagios/var/status.dat
