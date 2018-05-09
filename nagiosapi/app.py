@@ -1,5 +1,3 @@
-import sys
-
 from flask import Flask
 
 from blueprints import api

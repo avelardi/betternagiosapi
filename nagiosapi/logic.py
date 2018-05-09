@@ -1,6 +1,5 @@
 from flask import abort, jsonify
 import os
-import socket
 
 
 NAGIOS_STATUS_PATH = os.getenv("NAGIOS_STATUS_PATH", default="/usr/local/nagios/var/status.dat")

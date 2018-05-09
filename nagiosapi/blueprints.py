@@ -1,8 +1,7 @@
-import json
-
-from flask import Blueprint, abort, jsonify, request
+from flask import Blueprint, abort, jsonify
 
 from logic import status_json_or_404
+
 
 api = Blueprint("api", "api", url_prefix="/api")
 
