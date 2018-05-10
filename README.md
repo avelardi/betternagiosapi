@@ -1,4 +1,7 @@
-# NagiosAPI
+# nagiosapi
+
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
+[![circleci](https://circleci.com/gh/rmcintosh/nagiosapi.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/rmcintosh/nagiosapi)
 
 ## Requirements
 
@@ -8,8 +11,8 @@
 ## Installation
 
 ```sh
-$ git clone git@github.com:rmcintosh/NagiosAPI.git
-$ cd NagiosAPI/
+$ git clone git@github.com:rmcintosh/nagiosapi.git
+$ cd nagiosapi/
 ```
 
 From there you can choose to run it as a standard python application, or with Docker.
@@ -26,11 +29,11 @@ $ uwsgi --http :9090 --wsgi wsgi:application --master
 ### Docker
 
 ```sh
-$ docker build -t rmcintosh/nagios-api .
+$ docker build -t rmcintosh/nagiosapi .
 $ docker run -d \
-    --name nagios-api
+    --name nagiosapi
     -p 9090:9090 \
     -e NAGIOS_STATUS_PATH=/usr/local/nagios/var/status.dat \
     -v /usr/local/nagios/var/status.dat:/usr/local/nagios/var/status.dat
-    rmcintosh/nagios-api
+    rmcintosh/nagiosapi
 ```

@@ -9,4 +9,4 @@ WORKDIR /srv/nagiosapi
 
 ADD nagiosapi .
 
-CMD ["uwsgi", "--http", ":9090", "--uid", "10000", "--gid", "10000", "--wsgi", "wsgi:application", "--master"]
+CMD ["uwsgi", "--http", ":9090", "--uid", "10000", "--gid", "10000", "--wsgi", "nagiosapi:app", "--master"]

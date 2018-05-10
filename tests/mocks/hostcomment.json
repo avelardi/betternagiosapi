@@ -1,0 +1,14 @@
+{
+    "hostcomment": {
+      "author": "mcintosh", 
+      "comment_data": "acked via IRC", 
+      "comment_id": "1", 
+      "entry_time": "1521942626", 
+      "entry_type": "4", 
+      "expire_time": "0", 
+      "expires": "0", 
+      "host_name": "example", 
+      "persistent": "1", 
+      "source": "0"
+    }
+  }

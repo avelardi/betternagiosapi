@@ -1,0 +1,30 @@
+[
+    {
+      "contactstatus": {
+        "contact_name": "nagiosadmin", 
+        "host_notification_period": "24x7", 
+        "host_notifications_enabled": "1", 
+        "last_host_notification": "1522997021", 
+        "last_service_notification": "1521511521", 
+        "modified_attributes": "0", 
+        "modified_host_attributes": "0", 
+        "modified_service_attributes": "0", 
+        "service_notification_period": "24x7", 
+        "service_notifications_enabled": "1"
+      }
+    }, 
+    {
+      "contactstatus": {
+        "contact_name": "pagerduty", 
+        "host_notification_period": "24x7", 
+        "host_notifications_enabled": "1", 
+        "last_host_notification": "1522997021", 
+        "last_service_notification": "1521511521", 
+        "modified_attributes": "0", 
+        "modified_host_attributes": "0", 
+        "modified_service_attributes": "0", 
+        "service_notification_period": "24x7", 
+        "service_notifications_enabled": "1"
+      }
+    }
+  ]

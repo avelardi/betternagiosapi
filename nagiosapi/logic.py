@@ -2,11 +2,11 @@ import os
 
 from flask import abort, jsonify
 
-NAGIOS_STATUS_PATH = os.getenv("NAGIOS_STATUS_PATH",
-                               default="/usr/local/nagios/var/status.dat")
 
+def object_list_from_status_dat():
+    path = os.getenv("NAGIOS_STATUS_PATH",
+                     default="/usr/local/nagios/var/status.dat")
 
-def object_list_from_status_dat(path=NAGIOS_STATUS_PATH):
     skip_characters = "\n", "#"  # skip comments and empty lines
 
     objects = []
@@ -41,7 +41,7 @@ def object_list_from_status_dat(path=NAGIOS_STATUS_PATH):
 def status_json_or_404(endpoint=None, field=None, **kwargs):
     filters = {k: v for k, v in kwargs.items() if v is not None}
 
-    objects = object_list_from_status_dat(path=NAGIOS_STATUS_PATH)
+    objects = object_list_from_status_dat()
 
     if endpoint:
         objects = list(
@@ -49,11 +49,11 @@ def status_json_or_404(endpoint=None, field=None, **kwargs):
         )
 
         if filters:
-            objects = list(
-                filter(lambda o: k in o[endpoint] and o[endpoint][k] == v,
-                       objects)
-                for k, v in filters.items()
-            )
+            for k, v in filters.items():
+                objects = list(
+                    filter(lambda o: k in o[endpoint] and o[endpoint][k] == v,
+                           objects)
+                )
 
         if field:
             objects = list(
