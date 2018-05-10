@@ -1,52 +1,69 @@
-from flask import abort, jsonify
 import os
 
+from flask import abort, jsonify
 
-NAGIOS_STATUS_PATH = os.getenv("NAGIOS_STATUS_PATH", default="/usr/local/nagios/var/status.dat")
+NAGIOS_STATUS_PATH = os.getenv("NAGIOS_STATUS_PATH",
+                               default="/usr/local/nagios/var/status.dat")
 
 
-def status_json_or_404(endpoint=None, field=None, **filters):
-    filters = {k: v for k, v in filters.items() if v is not None}
+def object_list_from_status_dat(path=NAGIOS_STATUS_PATH):
+    skip_characters = "\n", "#"  # skip comments and empty lines
 
-    skip_chars = "\n", "#"  # skip comments and empty lines
+    objects = []
 
-    object_list = []
-
-    with open(NAGIOS_STATUS_PATH, "r") as f:
+    with open(path, "r") as f:
         lines = f.readlines()
 
     for line in lines:
-        current = len(object_list) - 1
+        current = len(objects) - 1
 
-        if line[0] in skip_chars:
+        if line[0] in skip_characters:
             continue
 
         if "{" in line:  # the start of a block includes an open brace
-            object_name = line[:-2].strip()  # the string before the curly
-            object_list.append({})
+            name = line[:-2].strip()  # the string before the curly
+            objects.append({})
             continue
 
         elif "}" in line:  # the end of a block - so, this object is complete
-            object_list[current] = {object_name: object_list[current]}
+            objects[current] = {name: objects[current]}
             continue
 
         else:  # must be a property within a block
             key = line.split("=")[0].strip()
             value = "".join(line.replace(f"{key}=", "")).strip()
-            object_list[current][key] = value
+            objects[current][key] = value
             continue
 
-    if endpoint:  # an `endpoint` is a block in the status.dat file
-        object_list = list(filter(lambda o: endpoint in o, object_list))
+    return objects
 
-        if filters:  # filter based on any keyword argumments that are passed in
-            for k, v in filters.items():
-                object_list = list(filter(lambda o: k in o[endpoint] and o[endpoint][k] == v, object_list))
 
-        if field:  # if a field is specified, return that field's value
-            object_list = list(map(lambda o: o[endpoint][field], object_list))
+def status_json_or_404(endpoint=None, field=None, **kwargs):
+    filters = {k: v for k, v in kwargs.items() if v is not None}
 
-    if not object_list:
+    objects = object_list_from_status_dat(path=NAGIOS_STATUS_PATH)
+
+    if endpoint:
+        objects = list(
+            filter(lambda o: endpoint in o, objects)
+        )
+
+        if filters:
+            objects = list(
+                filter(lambda o: k in o[endpoint] and o[endpoint][k] == v,
+                       objects)
+                for k, v in filters.items()
+            )
+
+        if field:
+            objects = list(
+                map(lambda o: o[endpoint][field], objects)
+            )
+
+    if not objects:
         abort(404)
 
-    return jsonify(object_list[0]) if len(object_list) == 1 else jsonify(object_list)
+    if len(objects) == 1:
+        objects = objects[0]
+
+    return jsonify(objects)
