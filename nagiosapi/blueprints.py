@@ -1,4 +1,4 @@
-from flask import Blueprint, abort, jsonify
+from flask import Blueprint
 
 from nagiosapi.logic import status_json_or_404
 
